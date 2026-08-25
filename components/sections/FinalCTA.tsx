@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { RevealText } from "@/components/motion/RevealText";
 import { Reveal } from "@/components/motion/Reveal";
-import { AnimatedRoute } from "@/components/motion/AnimatedRoute";
+import { AccentMark } from "@/components/ui/AccentMark";
 import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { fadeUp, EASE_EDITORIAL } from "@/lib/animations";
 
@@ -20,20 +21,23 @@ export function FinalCTA() {
         transition={{ duration: 1.3, ease: EASE_EDITORIAL }}
         aria-hidden="true"
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(70% 60% at 50% 0%, rgba(255,212,0,0.14) 0%, rgba(255,212,0,0) 55%), radial-gradient(60% 50% at 90% 100%, rgba(238,108,39,0.16) 0%, rgba(238,108,39,0) 55%), linear-gradient(180deg, #001d13 0%, #002a17 100%)",
-          }}
+        <Image
+          src="/images/olumo-rock.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-deep/70 via-forest-deep/50 to-forest-deep/85" />
       </motion.div>
 
-      <AnimatedRoute
-        path="M -40 60 C 260 -20, 480 160, 760 70 C 1000 -6, 1200 120, 1480 40"
-        viewBox="0 0 1400 200"
-        className="absolute inset-x-0 top-10 h-[160px] w-full opacity-40"
-        strokeWidth={2}
+      <AccentMark
+        variant="leaf"
+        className="absolute left-[6%] top-[12%] h-8 w-6 text-yellow sm:h-10 sm:w-8"
+      />
+      <AccentMark
+        variant="chevrons"
+        className="absolute right-[6%] top-1/2 h-6 w-10 -translate-y-1/2 text-yellow sm:h-7 sm:w-12"
       />
 
       <div className="container-iseyaa relative">
@@ -52,7 +56,7 @@ export function FinalCTA() {
           </Reveal>
 
           <Reveal variants={fadeUp} delay={0.25} className="mx-auto mt-10 max-w-lg">
-            <WaitlistForm source="final-cta" tone="dark" helperText="" />
+            <WaitlistForm source="final-cta" tone="light" helperText="" />
           </Reveal>
         </div>
       </div>

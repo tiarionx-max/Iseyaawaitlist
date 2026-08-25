@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  /* ISEYAA color system */
-  --color-forest: #003d24;
-  --color-forest-deep: #001d13;
-  --color-yellow: #ffd400;
+  /* ISEYAA color system — matches Figma variables (Primary Green,
+     Primary Yellow, BG light, BG dark) */
+  --color-forest: #013519;
+  --color-forest-deep: #001108;
+  --color-yellow: #f5d700;
   --color-orange: #ee6c27;
-  --color-cream: #faf2df;
-  --color-cream-soft: #fff9ee;
-  --color-ink: #101713;
-  --color-ink-muted: #5d625d;
-  --color-line: rgba(16, 23, 19, 0.1);
-  --color-line-on-dark: rgba(250, 242, 223, 0.16);
+  --color-cream: #fff3dc;
+  --color-cream-soft: #fffbf2;
+  --color-ink: #14201a;
+  --color-ink-muted: #5d6a60;
+  --color-line: rgba(20, 32, 26, 0.1);
+  --color-line-on-dark: rgba(255, 243, 220, 0.14);
 
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -69,10 +70,10 @@ body {
 }
 
 /* Fluid type scale, used across sections */
-.text-display {
-  font-size: clamp(2.75rem, 3.2vw + 2rem, 6rem);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
+.text-hero {
+  font-size: clamp(2.25rem, 2.6vw + 1.6rem, 3.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
 }
 
 .text-h2 {
@@ -105,7 +106,7 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid var(--color-orange);
+  outline: 2px solid var(--color-yellow);
   outline-offset: 3px;
   border-radius: 4px;
 }

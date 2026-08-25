@@ -1,8 +1,8 @@
-Drop the final hero footage here:
+`iseyaa-hero.mp4` is the real hero background, referenced by
+`components/sections/HeroMedia.tsx`. It plays over the illustrated
+landscape fallback (shown immediately, and kept for
+`prefers-reduced-motion` or a slow/data-saver connection).
 
-- `iseyaa-hero.mp4` (H.264, required)
-- `iseyaa-hero.webm` (VP9, optional but recommended for smaller payloads)
-
-Keep it short (6–12s), loopable, and compressed (~3–6 Mbps, 1080p is plenty —
-the video is always displayed cropped via `object-cover`). `components/sections/HeroMedia.tsx`
-already references these exact paths; no code changes are needed once the files exist.
+Optional: add `iseyaa-hero.webm` (VP9) alongside it for a smaller payload
+on browsers that support it — `HeroMedia.tsx` would need a second
+`<source>` added for it.
