@@ -79,7 +79,7 @@ export function Navbar() {
             className="fixed inset-0 z-50 flex flex-col bg-cream px-6 pb-10 pt-6"
           >
             <div className="flex items-center justify-between">
-              <Logo tone="dark" />
+              <Logo />
               <button
                 ref={closeButtonRef}
                 type="button"

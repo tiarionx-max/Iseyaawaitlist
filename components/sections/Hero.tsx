@@ -26,7 +26,7 @@ export function Hero() {
           animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: EASE_EDITORIAL }}
         >
-          <Logo tone="dark" />
+          <Logo className="h-8" />
         </motion.div>
 
         <motion.div

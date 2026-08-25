@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 
 const SOCIAL_LINKS = [
@@ -41,16 +42,14 @@ export function Footer() {
         <EyebrowBadge />
       </div>
 
-      <div className="relative mt-6 overflow-hidden pb-2 text-center leading-none" aria-hidden="true">
-        <span
-          className="relative inline-block bg-gradient-to-b from-cream-soft/80 to-cream-soft/5 bg-clip-text font-extrabold tracking-tight text-transparent"
-          style={{ fontSize: "clamp(5rem, 24vw, 16rem)" }}
-        >
-          iseyaa
-          <span className="absolute -top-[0.05em] left-[16%] h-[0.5em] w-[0.06em] -skew-x-[20deg] bg-cream-soft/50" />
-          <span className="absolute -top-[0.08em] left-[46%] h-[0.55em] w-[0.06em] -skew-x-[20deg] bg-cream-soft/50" />
-          <span className="absolute -top-[0.05em] left-[78%] h-[0.5em] w-[0.06em] -skew-x-[20deg] bg-cream-soft/50" />
-        </span>
+      <div className="relative mt-6 w-screen -translate-x-1/2 overflow-hidden pb-2" style={{ left: "50%" }} aria-hidden="true">
+        <Image
+          src="/images/footer-wordmark.png"
+          alt=""
+          width={1440}
+          height={273}
+          className="h-auto w-full"
+        />
       </div>
     </footer>
   );

@@ -35,19 +35,16 @@ Then open [http://localhost:3000](http://localhost:3000).
    (`app/api/waitlist/route.ts`, `lib/supabase.ts`) — it is never sent to
    the browser.
 
-## Replacing placeholder assets
+## Assets
 
-The site ships fully designed without final media so it never looks broken.
-Everything is wired to real paths that can be dropped in later with no code
-changes beyond swapping a `<div>`/`<svg>` for a `next/image` or removing a
-fallback illustration:
+Real media is wired in throughout — hero video, the six ecosystem
+illustrations, the logo, the footer wordmark and the Final CTA photo. See
+`public/images/README.md` and `public/videos/README.md` for what's there
+and the one thing still missing (the social share image).
 
-- `public/videos/iseyaa-hero.mp4` (+ optional `.webm`) — hero background,
-  see `public/videos/README.md`
-- `public/images/hero-poster.webp`, `public/images/iseyaa-og-image.jpg`,
-  and the six ecosystem card images — see `public/images/README.md`
-- `components/sections/ExperienceArt.tsx` — one illustrated placeholder per
-  ecosystem card, ready to be replaced with real photography/artwork
+The hero's illustrated landscape (`components/sections/HeroMedia.tsx`) is
+kept as the fallback shown before the video loads, under
+`prefers-reduced-motion`, and on slow/data-saver connections.
 
 ## Project structure
 
