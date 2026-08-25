@@ -12,7 +12,6 @@ import { fadeUp, scaleSettle } from "@/lib/animations";
 
 const EXPERIENCES = [
   {
-    index: "01",
     title: "Explore Ogun",
     description:
       "Discover remarkable places, their history, important visitor information and directions.",
@@ -22,7 +21,6 @@ const EXPERIENCES = [
     variant: fadeUp,
   },
   {
-    index: "02",
     title: "ISEYAA Wallet",
     description: "Pay for experiences across Ogun from one secure, connected wallet.",
     art: <WalletArt />,
@@ -31,7 +29,6 @@ const EXPERIENCES = [
     variant: scaleSettle,
   },
   {
-    index: "03",
     title: "Marketplace",
     description:
       "Discover and shop art, Adire, crafts and creative pieces from Ogun’s growing creative community.",
@@ -41,7 +38,6 @@ const EXPERIENCES = [
     variant: fadeUp,
   },
   {
-    index: "04",
     title: "Events & Ticketing",
     description: "Find the events you love, register and get your tickets all in one place.",
     art: <EventsArt />,
@@ -50,7 +46,6 @@ const EXPERIENCES = [
     variant: scaleSettle,
   },
   {
-    index: "05",
     title: "Stay in Ogun",
     description: "Find and book hotels, staycations and memorable places to stay across the state.",
     art: <StayArt />,
@@ -62,16 +57,16 @@ const EXPERIENCES = [
 
 export function ExperienceGrid() {
   return (
-    <section id="experiences" className="relative bg-forest py-28 sm:py-36">
+    <section id="experiences" className="relative bg-cream py-28 sm:py-36">
       <div className="container-iseyaa">
-        <div className="max-w-2xl">
+        <div className="mx-auto max-w-2xl text-center">
           <Reveal variants={fadeUp}>
-            <h2 className="text-h2 font-semibold tracking-tight text-cream-soft">
+            <h2 className="text-h2 font-semibold tracking-tight text-ink">
               One platform. More ways to experience Ogun.
             </h2>
           </Reveal>
           <Reveal variants={fadeUp} delay={0.1}>
-            <p className="mt-5 text-base leading-relaxed text-cream-soft/70 sm:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-ink-muted sm:text-lg">
               Explore, pay, shop, attend, stay and create with ISEYAA
               connecting every experience along the way.
             </p>
@@ -81,13 +76,12 @@ export function ExperienceGrid() {
         <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-6 sm:mt-16">
           {EXPERIENCES.map((experience, i) => (
             <Reveal
-              key={experience.index}
+              key={experience.title}
               variants={experience.variant}
               delay={(i % 3) * 0.08}
               className={`md:col-span-1 ${experience.span}`}
             >
               <ExperienceCard
-                index={experience.index}
                 title={experience.title}
                 description={experience.description}
                 art={experience.art}
@@ -103,13 +97,11 @@ export function ExperienceGrid() {
             className="md:col-span-2 lg:col-span-6"
           >
             <ExperienceCard
-              index="06"
               title="Creative Studio"
               description="Record, create and produce from ISEYAA’s physical creative studio in Abeokuta."
               art={<StudioArt />}
-              aspect="aspect-[4/3] lg:aspect-[21/9]"
-              dark
-              className="h-full"
+              aspect="aspect-[4/3] sm:aspect-square"
+              layout="split"
             />
           </Reveal>
         </div>

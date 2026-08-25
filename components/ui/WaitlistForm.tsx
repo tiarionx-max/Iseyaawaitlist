@@ -4,17 +4,16 @@ import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import { waitlistSchema, type WaitlistInput } from "@/lib/validations";
 import type { WaitlistApiResponse, WaitlistStatus } from "@/types/waitlist";
 import { EASE_EDITORIAL } from "@/lib/animations";
-import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface WaitlistFormProps {
   source: string;
   className?: string;
-  /** Use on dark backgrounds (hero video, final CTA). */
+  /** Caption/error text color context — the pill itself is always cream. */
   tone?: "dark" | "light";
   /** Idle-state microcopy shown under the field. Pass "" to hide it. */
   helperText?: string;
@@ -74,7 +73,6 @@ export function WaitlistForm({
     }
   }
 
-  const isDark = tone === "dark";
   const isDone = status === "success";
   const transition = { duration: prefersReducedMotion ? 0 : 0.5, ease: EASE_EDITORIAL };
 
@@ -88,17 +86,12 @@ export function WaitlistForm({
               initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={transition}
-              className={cn(
-                "flex items-center gap-3 rounded-full border px-5 py-4",
-                isDark
-                  ? "border-yellow/40 bg-white/5 text-cream-soft"
-                  : "border-forest/20 bg-forest/5 text-forest"
-              )}
+              className="flex items-center gap-3 rounded-full bg-cream-soft px-5 py-3.5 shadow-[0_2px_16px_-4px_rgba(20,32,26,0.15)]"
               role="status"
               aria-live="polite"
             >
-              <CheckCircle2 className="size-5 shrink-0 text-yellow" aria-hidden="true" />
-              <p className="text-sm font-medium sm:text-base">
+              <CheckCircle2 className="size-5 shrink-0 text-forest" aria-hidden="true" />
+              <p className="text-sm font-medium text-ink sm:text-base">
                 You’re in. Welcome to ISEYAA.
               </p>
             </motion.div>
@@ -111,57 +104,56 @@ export function WaitlistForm({
               transition={transition}
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="flex flex-col gap-3 sm:flex-row"
+              className="flex items-center gap-1.5 rounded-full bg-cream-soft p-1.5 pl-5 shadow-[0_2px_16px_-4px_rgba(20,32,26,0.15)] focus-within:ring-2 focus-within:ring-yellow"
             >
-              <div className="flex-1">
-                <label htmlFor={inputId} className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id={inputId}
-                  type="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="Enter your email"
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={errors.email ? `${inputId}-error` : undefined}
-                  className={cn(
-                    "w-full rounded-full border px-5 py-4 text-sm outline-none transition-colors duration-200 sm:text-base",
-                    isDark
-                      ? "border-white/20 bg-white/10 text-cream-soft placeholder:text-cream-soft/50 focus:border-yellow"
-                      : "border-ink/15 bg-white text-ink placeholder:text-ink-muted focus:border-forest"
-                  )}
-                  {...register("email")}
-                />
-              </div>
-              <Button
+              <label htmlFor={inputId} className="sr-only">
+                Email address
+              </label>
+              <input
+                id={inputId}
+                type="email"
+                autoComplete="email"
+                inputMode="email"
+                placeholder="Enter E-mail"
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? `${inputId}-error` : undefined}
+                className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted sm:text-base"
+                {...register("email")}
+              />
+              <button
                 type="submit"
-                variant="accent"
-                loading={status === "loading"}
-                arrow
-                className="shrink-0"
+                disabled={status === "loading"}
+                className={cn(
+                  "inline-flex shrink-0 items-center justify-center rounded-full bg-forest px-6 py-3 text-sm font-medium text-cream-soft",
+                  "transition-[background-color,transform] duration-200 ease-out active:scale-[0.98] disabled:opacity-70 sm:text-base",
+                  "hover:bg-[#024322]"
+                )}
               >
-                Join the waitlist
-              </Button>
+                {status === "loading" ? (
+                  <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+                ) : (
+                  "Join the waitlist"
+                )}
+              </button>
             </motion.form>
           )}
         </AnimatePresence>
       </div>
 
-      <div className="mt-3 min-h-[1.25rem] text-sm" aria-live="polite">
+      <div className="mt-3 min-h-[1.25rem] text-center text-sm" aria-live="polite">
         {errors.email && (
-          <p id={`${inputId}-error`} className={cn(isDark ? "text-yellow" : "text-orange")}>
+          <p id={`${inputId}-error`} className={tone === "dark" ? "text-orange" : "text-yellow"}>
             {errors.email.message}
           </p>
         )}
         {!errors.email && status === "duplicate" && (
-          <p className={isDark ? "text-cream-soft/80" : "text-ink-muted"}>{message}</p>
+          <p className={tone === "dark" ? "text-ink-muted" : "text-cream-soft/80"}>{message}</p>
         )}
         {!errors.email && status === "error" && (
-          <p className={isDark ? "text-yellow" : "text-orange"}>{message}</p>
+          <p className={tone === "dark" ? "text-orange" : "text-yellow"}>{message}</p>
         )}
         {!errors.email && status === "idle" && helperText && (
-          <p className={isDark ? "text-cream-soft/60" : "text-ink-muted"}>{helperText}</p>
+          <p className={tone === "dark" ? "text-ink-muted" : "text-cream-soft/70"}>{helperText}</p>
         )}
       </div>
     </div>

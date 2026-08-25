@@ -1,14 +1,13 @@
 import type { ReactNode } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ExperienceCardProps {
-  index: string;
   title: string;
   description: string;
   art: ReactNode;
   aspect?: string;
-  dark?: boolean;
+  /** "stacked": image on top, text below. "split": image left, text right. */
+  layout?: "stacked" | "split";
   className?: string;
 }
 
@@ -18,59 +17,49 @@ interface ExperienceCardProps {
  * grid column spans set where the card is placed in ExperienceGrid.
  */
 export function ExperienceCard({
-  index,
   title,
   description,
   art,
   aspect = "aspect-[4/5]",
-  dark = false,
+  layout = "stacked",
   className,
 }: ExperienceCardProps) {
+  if (layout === "split") {
+    return (
+      <article
+        className={cn(
+          "group flex flex-col overflow-hidden rounded-[1.75rem] border border-ink/10 bg-cream-soft p-2.5 sm:flex-row sm:items-center",
+          className
+        )}
+      >
+        <div className={cn("relative w-full overflow-hidden rounded-[1.4rem] sm:w-1/2", aspect)}>
+          <div className="absolute inset-0 transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.03]">
+            {art}
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 px-6 py-6 sm:w-1/2 sm:px-10">
+          <h3 className="text-h3 font-semibold text-ink">{title}</h3>
+          <p className="text-sm leading-relaxed text-ink-muted sm:text-base">{description}</p>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border transition-colors duration-300",
-        dark
-          ? "border-white/10 bg-forest-deep"
-          : "border-ink/10 bg-cream-soft",
+        "group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-ink/10 bg-cream-soft p-2.5",
         className
       )}
     >
-      <div className={cn("relative overflow-hidden", aspect)}>
+      <div className={cn("relative overflow-hidden rounded-[1.4rem]", aspect)}>
         <div className="absolute inset-0 transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.03]">
           {art}
         </div>
       </div>
-
-      <div className="flex flex-1 flex-col gap-2 p-6 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 sm:p-8">
-        <span
-          className={cn(
-            "text-xs font-semibold tracking-[0.14em]",
-            dark ? "text-yellow" : "text-orange"
-          )}
-        >
-          {index}
-        </span>
-        <div className="flex items-start justify-between gap-4">
-          <h3 className={cn("text-h3 font-semibold", dark ? "text-cream-soft" : "text-ink")}>
-            {title}
-          </h3>
-          <ArrowUpRight
-            className={cn(
-              "mt-1 size-5 shrink-0 transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-1",
-              dark ? "text-cream-soft/60" : "text-ink-muted"
-            )}
-            aria-hidden="true"
-          />
-        </div>
-        <p
-          className={cn(
-            "text-sm leading-relaxed sm:text-base",
-            dark ? "text-cream-soft/70" : "text-ink-muted"
-          )}
-        >
-          {description}
-        </p>
+      <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-6 sm:px-6">
+        <h3 className="text-h3 font-semibold text-ink">{title}</h3>
+        <p className="text-sm leading-relaxed text-ink-muted sm:text-base">{description}</p>
       </div>
     </article>
   );

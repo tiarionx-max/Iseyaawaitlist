@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import { RevealText } from "@/components/motion/RevealText";
 import { Reveal } from "@/components/motion/Reveal";
-import { AnimatedRoute } from "@/components/motion/AnimatedRoute";
+import { AccentMark } from "@/components/ui/AccentMark";
 import { WaitlistForm } from "@/components/ui/WaitlistForm";
 import { fadeUp, EASE_EDITORIAL } from "@/lib/animations";
 
@@ -20,20 +20,17 @@ export function FinalCTA() {
         transition={{ duration: 1.3, ease: EASE_EDITORIAL }}
         aria-hidden="true"
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(70% 60% at 50% 0%, rgba(255,212,0,0.14) 0%, rgba(255,212,0,0) 55%), radial-gradient(60% 50% at 90% 100%, rgba(238,108,39,0.16) 0%, rgba(238,108,39,0) 55%), linear-gradient(180deg, #001d13 0%, #002a17 100%)",
-          }}
-        />
+        <AerialTerrain />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-deep/70 via-forest-deep/50 to-forest-deep/85" />
       </motion.div>
 
-      <AnimatedRoute
-        path="M -40 60 C 260 -20, 480 160, 760 70 C 1000 -6, 1200 120, 1480 40"
-        viewBox="0 0 1400 200"
-        className="absolute inset-x-0 top-10 h-[160px] w-full opacity-40"
-        strokeWidth={2}
+      <AccentMark
+        variant="leaf"
+        className="absolute left-[6%] top-[12%] h-8 w-6 text-yellow sm:h-10 sm:w-8"
+      />
+      <AccentMark
+        variant="chevrons"
+        className="absolute right-[6%] top-1/2 h-6 w-10 -translate-y-1/2 text-yellow sm:h-7 sm:w-12"
       />
 
       <div className="container-iseyaa relative">
@@ -52,10 +49,29 @@ export function FinalCTA() {
           </Reveal>
 
           <Reveal variants={fadeUp} delay={0.25} className="mx-auto mt-10 max-w-lg">
-            <WaitlistForm source="final-cta" tone="dark" helperText="" />
+            <WaitlistForm source="final-cta" tone="light" helperText="" />
           </Reveal>
         </div>
       </div>
     </section>
+  );
+}
+
+/** Dark, layered stand-in for the aerial Olumo Rock photograph. */
+function AerialTerrain() {
+  return (
+    <svg
+      className="absolute inset-0 h-full w-full"
+      viewBox="0 0 1440 423"
+      preserveAspectRatio="xMidYMid slice"
+      fill="none"
+      aria-hidden="true"
+    >
+      <rect width="1440" height="423" fill="#001108" />
+      <path d="M-40 320 C 200 220, 420 360, 640 260 C 860 170, 1080 300, 1300 220 L1440 260 L1440 423 L-40 423 Z" fill="#012a17" />
+      <path d="M-40 380 C 260 300, 480 420, 760 340 C 980 280, 1180 380, 1440 320 L1440 423 L-40 423 Z" fill="#02160d" />
+      <path d="M400 200 C 460 150, 520 150, 560 200 C 600 250, 560 290, 500 280 C 440 270, 400 240, 400 200 Z" fill="#013519" opacity="0.7" />
+      <path d="M780 180 C 850 130, 930 150, 950 210 C 970 270, 900 300, 830 280 C 770 260, 750 220, 780 180 Z" fill="#013519" opacity="0.6" />
+    </svg>
   );
 }
