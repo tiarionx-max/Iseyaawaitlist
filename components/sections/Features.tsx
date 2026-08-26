@@ -77,7 +77,7 @@ export function Features() {
         </div>
 
         {/* Mobile / tablet: simple stacked list, no scroll interaction */}
-        <div className="mt-14 flex flex-col gap-16 lg:hidden">
+        <div className="mt-14 flex flex-col gap-[18px] lg:hidden">
           {FEATURES.map((item, i) => (
             <Reveal key={item.title} variants={fadeUp} delay={(i % 3) * 0.06}>
               <div className="relative aspect-[345/220] w-full overflow-hidden">
