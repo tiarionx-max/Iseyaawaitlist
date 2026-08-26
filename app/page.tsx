@@ -1,6 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { BrandStatement } from "@/components/sections/BrandStatement";
-import { ExperienceGrid } from "@/components/sections/ExperienceGrid";
+import { Features } from "@/components/sections/Features";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
     <main>
       <Hero />
       <BrandStatement />
-      <ExperienceGrid />
+      <Features />
       <FinalCTA />
     </main>
   );
