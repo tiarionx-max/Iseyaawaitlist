@@ -10,14 +10,18 @@ import type { FeatureItem } from "@/components/sections/Features";
 /**
  * Two-column scrollytelling layout: the item list scrolls normally while
  * the image panel stays pinned (CSS `sticky`) and crossfades to match
- * whichever item currently sits at the viewport's vertical center. Active
- * item is tracked with one IntersectionObserver per row rather than a
- * scroll listener, so there's no per-frame layout work.
+ * whichever item currently sits at the viewport's vertical center. The
+ * scroll position drives the active item via one IntersectionObserver per
+ * row (no scroll listener), and hovering a row previews its image directly
+ * — hover takes over while the pointer is over the list, then hands back
+ * to the scroll-tracked item once it leaves.
  */
 export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
-  const [active, setActive] = useState(0);
+  const [scrollActive, setScrollActive] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
   const prefersReducedMotion = useReducedMotion();
+  const active = hoveredIndex ?? scrollActive;
 
   useEffect(() => {
     const observers = rowRefs.current.map((row, index) => {
@@ -25,7 +29,7 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setActive(index);
+          if (entry.isIntersecting) setScrollActive(index);
         },
         { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
       );
@@ -48,8 +52,10 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
               ref={(el) => {
                 rowRefs.current[index] = el;
               }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
               className={cn(
-                "border-l-4 px-6 py-5 transition-colors duration-300",
+                "cursor-pointer border-l-4 px-6 py-5 transition-colors duration-300",
                 isActive ? "border-yellow bg-yellow/15" : "border-transparent"
               )}
             >
