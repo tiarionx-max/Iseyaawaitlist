@@ -91,7 +91,7 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
                   alt={items[active].title}
                   fill
                   sizes="(min-width: 1024px) 536px, 0px"
-                  className="object-contain"
+                  className="object-cover"
                 />
               </motion.div>
             </AnimatePresence>
