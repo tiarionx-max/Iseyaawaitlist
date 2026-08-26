@@ -39,7 +39,7 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
 
   return (
     <div className="grid grid-cols-[1.1fr_1fr] gap-16 xl:gap-24">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col">
         {items.map((item, index) => {
           const isActive = index === active;
           return (
@@ -48,27 +48,31 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
               ref={(el) => {
                 rowRefs.current[index] = el;
               }}
-              className={cn(
-                "border-l-4 px-6 py-5 transition-colors duration-300",
-                isActive ? "border-yellow bg-yellow/15" : "border-transparent"
-              )}
+              className="flex min-h-[65vh] flex-col justify-center"
             >
-              <h3
+              <div
                 className={cn(
-                  "text-h3 font-semibold transition-colors duration-300",
-                  isActive ? "text-ink" : "text-forest/55"
+                  "border-l-4 px-6 py-5 transition-colors duration-300",
+                  isActive ? "border-yellow bg-yellow/15" : "border-transparent"
                 )}
               >
-                {item.title}
-              </h3>
-              <p
-                className={cn(
-                  "mt-2 text-sm leading-relaxed transition-colors duration-300 sm:text-base",
-                  isActive ? "text-ink-muted" : "text-ink-muted/60"
-                )}
-              >
-                {item.description}
-              </p>
+                <h3
+                  className={cn(
+                    "text-h3 font-semibold transition-colors duration-300",
+                    isActive ? "text-ink" : "text-forest/55"
+                  )}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  className={cn(
+                    "mt-2 text-sm leading-relaxed transition-colors duration-300 sm:text-base",
+                    isActive ? "text-ink-muted" : "text-ink-muted/60"
+                  )}
+                >
+                  {item.description}
+                </p>
+              </div>
             </div>
           );
         })}
