@@ -49,7 +49,7 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
                 rowRefs.current[index] = el;
               }}
               className={cn(
-                "rounded-2xl border-l-4 px-6 py-5 transition-colors duration-300",
+                "border-l-4 px-6 py-5 transition-colors duration-300",
                 isActive ? "border-yellow bg-yellow/15" : "border-transparent"
               )}
             >
@@ -76,7 +76,7 @@ export function FeaturesDesktop({ items }: { items: FeatureItem[] }) {
 
       <div className="relative">
         <div className="sticky top-32">
-          <div className="relative aspect-[536/700] w-full overflow-hidden rounded-[1.75rem] bg-cream-soft">
+          <div className="relative aspect-[536/700] w-full overflow-hidden bg-cream-soft">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={items[active].title}

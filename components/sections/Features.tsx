@@ -80,7 +80,7 @@ export function Features() {
         <div className="mt-14 flex flex-col gap-16 lg:hidden">
           {FEATURES.map((item, i) => (
             <Reveal key={item.title} variants={fadeUp} delay={(i % 3) * 0.06}>
-              <div className="relative aspect-[345/220] w-full overflow-hidden rounded-[1.5rem]">
+              <div className="relative aspect-[345/220] w-full overflow-hidden">
                 <Image
                   src={item.mobileImage}
                   alt={item.title}
