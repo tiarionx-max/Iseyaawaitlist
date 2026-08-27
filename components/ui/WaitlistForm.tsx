@@ -13,23 +13,18 @@ import { cn } from "@/lib/utils";
 interface WaitlistFormProps {
   source: string;
   className?: string;
-  /** Caption/error text color context — the pill itself is always cream. */
-  tone?: "dark" | "light";
-  /** Idle-state microcopy shown under the field. Pass "" to hide it. */
-  helperText?: string;
 }
 
-type FormValues = Pick<WaitlistInput, "email">;
+type FormValues = Pick<WaitlistInput, "name" | "email">;
 
-export function WaitlistForm({
-  source,
-  className,
-  tone = "dark",
-  helperText = "Be among the first to experience ISEYAA.",
-}: WaitlistFormProps) {
+const inputClassName =
+  "h-[60px] w-full rounded-[10px] border border-forest-deep/50 bg-cream px-6 text-sm text-ink outline-none placeholder:text-[#9ca19e] focus:ring-2 focus:ring-yellow";
+
+export function WaitlistForm({ source, className }: WaitlistFormProps) {
   const [status, setStatus] = useState<WaitlistStatus>("idle");
   const [message, setMessage] = useState<string | null>(null);
-  const inputId = useId();
+  const nameId = useId();
+  const emailId = useId();
   const prefersReducedMotion = useReducedMotion();
 
   const {
@@ -37,7 +32,7 @@ export function WaitlistForm({
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: zodResolver(waitlistSchema.pick({ email: true })),
+    resolver: zodResolver(waitlistSchema.pick({ name: true, email: true })),
     mode: "onSubmit",
   });
 
@@ -50,6 +45,7 @@ export function WaitlistForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name: values.name,
           email: values.email,
           source,
           referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
@@ -74,88 +70,100 @@ export function WaitlistForm({
   }
 
   const isDone = status === "success";
+  const fieldError = errors.name?.message ?? errors.email?.message;
   const transition = { duration: prefersReducedMotion ? 0 : 0.5, ease: EASE_EDITORIAL };
 
   return (
-    <div className={cn("w-full", className)}>
-      <div className="relative min-h-[3.75rem]">
-        <AnimatePresence mode="wait" initial={false}>
-          {isDone ? (
-            <motion.div
-              key="success"
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={transition}
-              className="flex items-center gap-3 rounded-full bg-cream-soft px-5 py-3.5 shadow-[0_2px_16px_-4px_rgba(20,32,26,0.15)]"
-              role="status"
-              aria-live="polite"
-            >
-              <CheckCircle2 className="size-5 shrink-0 text-forest" aria-hidden="true" />
-              <p className="text-sm font-medium text-ink sm:text-base">
-                You’re in. Welcome to ISEYAA.
-              </p>
-            </motion.div>
-          ) : (
-            <motion.form
-              key="form"
-              initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -8 }}
-              transition={transition}
-              onSubmit={handleSubmit(onSubmit)}
-              noValidate
-              className="flex items-center gap-1.5 rounded-full bg-cream-soft p-1.5 pl-5 shadow-[0_2px_16px_-4px_rgba(20,32,26,0.15)] focus-within:ring-2 focus-within:ring-yellow"
-            >
-              <label htmlFor={inputId} className="sr-only">
+    <div className={cn("w-full rounded-[20px] bg-cream-soft p-7", className)}>
+      <AnimatePresence mode="wait" initial={false}>
+        {isDone ? (
+          <motion.div
+            key="success"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={transition}
+            className="flex flex-col items-center gap-3 py-6 text-center"
+            role="status"
+            aria-live="polite"
+          >
+            <CheckCircle2 className="size-8 text-forest" aria-hidden="true" />
+            <p className="text-base font-medium text-forest-deep">
+              You’re in. Welcome to ISEYAA.
+            </p>
+          </motion.div>
+        ) : (
+          <motion.form
+            key="form"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: prefersReducedMotion ? 0 : -8 }}
+            transition={transition}
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            className="flex flex-col gap-4"
+          >
+            <div className="flex flex-col gap-2.5">
+              <label htmlFor={nameId} className="sr-only">
+                Full Name
+              </label>
+              <input
+                id={nameId}
+                type="text"
+                autoComplete="name"
+                placeholder="Full Name"
+                aria-invalid={Boolean(errors.name)}
+                aria-describedby={fieldError ? `${nameId}-error` : undefined}
+                className={inputClassName}
+                {...register("name")}
+              />
+
+              <label htmlFor={emailId} className="sr-only">
                 Email address
               </label>
               <input
-                id={inputId}
+                id={emailId}
                 type="email"
                 autoComplete="email"
                 inputMode="email"
-                placeholder="Enter E-mail"
+                placeholder="E-mail"
                 aria-invalid={Boolean(errors.email)}
-                aria-describedby={errors.email ? `${inputId}-error` : undefined}
-                className="min-w-0 flex-1 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted sm:text-base"
+                aria-describedby={fieldError ? `${nameId}-error` : undefined}
+                className={inputClassName}
                 {...register("email")}
               />
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className={cn(
-                  "inline-flex shrink-0 items-center justify-center rounded-full bg-forest px-6 py-3 text-sm font-medium text-cream-soft",
-                  "transition-[background-color,transform] duration-200 ease-out active:scale-[0.98] disabled:opacity-70 sm:text-base",
-                  "hover:bg-[#024322]"
-                )}
-              >
-                {status === "loading" ? (
-                  <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-                ) : (
-                  "Join the waitlist"
-                )}
-              </button>
-            </motion.form>
-          )}
-        </AnimatePresence>
-      </div>
+            </div>
 
-      <div className="mt-3 min-h-[1.25rem] text-center text-sm" aria-live="polite">
-        {errors.email && (
-          <p id={`${inputId}-error`} className={tone === "dark" ? "text-orange" : "text-yellow"}>
-            {errors.email.message}
-          </p>
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="flex h-[60px] w-full items-center justify-center rounded-[10px] bg-forest-deep text-base font-medium text-white shadow-[inset_0_0_24px_0_rgba(255,247,231,0.1)] transition-[background-color,transform] duration-200 ease-out active:scale-[0.98] disabled:opacity-70"
+            >
+              {status === "loading" ? (
+                <Loader2 className="size-5 animate-spin" aria-hidden="true" />
+              ) : (
+                "Join the waitlist"
+              )}
+            </button>
+
+            <div className="min-h-[1rem] text-center text-xs" aria-live="polite">
+              {fieldError && (
+                <p id={`${nameId}-error`} className="text-orange">
+                  {fieldError}
+                </p>
+              )}
+              {!fieldError && status === "duplicate" && (
+                <p className="text-forest-deep/70">{message}</p>
+              )}
+              {!fieldError && status === "error" && <p className="text-orange">{message}</p>}
+              {!fieldError && status === "idle" && (
+                <p className="text-forest-deep">
+                  Be the first to know about Iseyaa when we launch
+                </p>
+              )}
+            </div>
+          </motion.form>
         )}
-        {!errors.email && status === "duplicate" && (
-          <p className={tone === "dark" ? "text-ink-muted" : "text-cream-soft/80"}>{message}</p>
-        )}
-        {!errors.email && status === "error" && (
-          <p className={tone === "dark" ? "text-orange" : "text-yellow"}>{message}</p>
-        )}
-        {!errors.email && status === "idle" && helperText && (
-          <p className={tone === "dark" ? "text-ink-muted" : "text-cream-soft/70"}>{helperText}</p>
-        )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }

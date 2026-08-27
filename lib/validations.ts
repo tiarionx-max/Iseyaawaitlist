@@ -1,6 +1,11 @@
 import { z } from "zod";
 
 export const waitlistSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Please tell us your name.")
+    .max(120, "That name is too long."),
   email: z
     .string()
     .trim()

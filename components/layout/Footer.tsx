@@ -2,9 +2,9 @@ import Image from "next/image";
 import { EyebrowBadge } from "@/components/ui/EyebrowBadge";
 
 const SOCIAL_LINKS = [
-  { label: "Instagram", href: "https://instagram.com/iseyaa" },
-  { label: "X", href: "https://x.com/iseyaa" },
-  { label: "Email", href: "mailto:hello@iseyaa.com" },
+  { label: "Instagram", href: "https://instagram.com/iseyaanow" },
+  { label: "X", href: "https://x.com/iseyaanow" },
+  { label: "Email", href: "mailto:contact@iseyaa.com" },
 ];
 
 const LEGAL_LINKS = [

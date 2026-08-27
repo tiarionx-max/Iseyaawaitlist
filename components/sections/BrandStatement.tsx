@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { fadeUp } from "@/lib/animations";
 
@@ -20,12 +21,16 @@ export function BrandStatement() {
           </Reveal>
         </div>
 
-        {/* Illustration not yet uploaded to the repo — see public/images/README.md */}
         <Reveal variants={fadeUp} delay={0.15} className="w-full lg:flex-1">
-          <div
-            className="aspect-[536/437] w-full max-w-[536px] bg-cream-soft lg:ml-auto"
-            aria-hidden="true"
-          />
+          <div className="relative aspect-[536/437] w-full max-w-[536px] overflow-hidden bg-cream-soft lg:ml-auto">
+            <Image
+              src="/images/abeokuta-station.png"
+              alt="Professor Wole Soyinka Station in Abeokuta"
+              fill
+              sizes="(min-width: 1024px) 536px, 100vw"
+              className="object-cover"
+            />
+          </div>
         </Reveal>
       </div>
     </section>

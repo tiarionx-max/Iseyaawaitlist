@@ -31,13 +31,14 @@ export async function POST(request: Request) {
     return json({ status: "error", message: MESSAGES.invalid }, 400);
   }
 
-  const { email, source } = parsed.data;
+  const { name, email, source } = parsed.data;
   const referrer = parsed.data.referrer ?? request.headers.get("referer") ?? undefined;
 
   try {
     const supabase = getSupabaseServerClient();
 
     const { error } = await supabase.from("waitlist").insert({
+      full_name: name,
       email: email.toLowerCase(),
       source: source ?? "site",
       referrer,

@@ -3,6 +3,7 @@
 
 create table if not exists public.waitlist (
   id uuid primary key default gen_random_uuid(),
+  full_name text not null,
   email text not null,
   created_at timestamptz not null default now(),
   source text default 'site',
@@ -11,6 +12,11 @@ create table if not exists public.waitlist (
 
 create unique index if not exists waitlist_email_key
   on public.waitlist (lower(email));
+
+-- If the table was already created before the "Full Name" field was added
+-- to the form, run this against the existing table instead of the
+-- CREATE TABLE above:
+-- alter table public.waitlist add column if not exists full_name text not null default '';
 
 alter table public.waitlist enable row level security;
 
