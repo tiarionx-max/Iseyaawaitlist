@@ -51,12 +51,12 @@ export function HeroMedia() {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-top"
         />
 
         {canUseVideo && (
           <video
-            className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-out"
+            className="absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-1000 ease-out"
             style={{ opacity: videoReady ? 1 : 0 }}
             autoPlay
             loop
