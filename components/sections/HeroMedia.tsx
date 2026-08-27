@@ -9,8 +9,19 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
  * a poster frame pulled from that same footage — shown immediately, kept
  * under prefers-reduced-motion or a slow/data-saver connection, and left
  * visible until the video can actually play so a slow load never shows a
- * black frame. A gentle parallax drift ties it to scroll position once the
- * hero starts leaving the viewport.
+ * black frame.
+ *
+ * The source footage is a near-square crop (1440x1180) with the building
+ * roughly in its lower half; `object-cover` alone reveals a different
+ * slice of it depending on the viewport's own aspect ratio — on a tall
+ * narrow screen it can show the whole frame (building and all), while a
+ * wide short one crops it down. Rather than let the building appear
+ * partially cropped depending on window shape, `origin-top scale-[2.2]`
+ * zooms in on the sky/birds consistently and pushes the building below
+ * the visible frame on every viewport — Ogun's rock formations are
+ * already featured elsewhere on the page (Final CTA, BrandStatement).
+ * A gentle parallax drift ties it to scroll position once the hero starts
+ * leaving the viewport.
  */
 export function HeroMedia() {
   const prefersReducedMotion = useReducedMotion();
@@ -44,7 +55,7 @@ export function HeroMedia() {
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden bg-cream" aria-hidden="true">
-      <motion.div className="absolute inset-0 scale-[1.15]" style={{ y: parallaxY }}>
+      <motion.div className="absolute inset-0 origin-top scale-[2.2]" style={{ y: parallaxY }}>
         <Image
           src="/images/hero-poster.webp"
           alt=""
