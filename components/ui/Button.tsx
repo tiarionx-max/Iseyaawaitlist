@@ -16,7 +16,7 @@ export function buttonClassName(variant: ButtonVariant = "primary", className?: 
     "group inline-flex items-center justify-center gap-2 whitespace-nowrap",
     "rounded-full font-medium tracking-tight",
     "transition-[background-color,border-color,color,transform] duration-200 ease-out",
-    "active:scale-[0.98] disabled:opacity-60 disabled:pointer-events-none",
+    "hover:scale-[1.03] active:scale-[0.98] disabled:opacity-60 disabled:pointer-events-none disabled:hover:scale-100",
     variant === "ghost" ? "px-1 py-1" : "px-6 py-3.5 sm:px-7",
     VARIANT_STYLES[variant],
     className

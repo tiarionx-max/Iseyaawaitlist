@@ -4,6 +4,8 @@ import { MotionConfig } from "motion/react";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LoadingScreen } from "@/components/layout/LoadingScreen";
+import { CustomCursor } from "@/components/layout/CustomCursor";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -63,6 +65,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={jakarta.variable}>
       <body id="top" className="bg-cream text-ink antialiased">
         <MotionConfig reducedMotion="user">
+          <LoadingScreen />
+          <CustomCursor />
           <SmoothScroll>
             <Navbar />
             {children}

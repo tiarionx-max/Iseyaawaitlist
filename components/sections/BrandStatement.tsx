@@ -4,7 +4,7 @@ import { fadeUp } from "@/lib/animations";
 
 export function BrandStatement() {
   return (
-    <section id="about" className="relative bg-cream py-28 sm:py-36">
+    <section id="about" className="relative bg-cream pb-10 pt-28 sm:pb-14 sm:pt-36">
       <div className="container-iseyaa flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
         <div className="max-w-xl text-center lg:max-w-none lg:flex-1 lg:text-left">
           <Reveal variants={fadeUp}>

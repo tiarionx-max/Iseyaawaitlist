@@ -24,14 +24,20 @@ export function FinalCTA() {
         <Image src="/images/olumo-rock.png" alt="" fill sizes="100vw" className="object-cover" />
       </motion.div>
 
-      <AccentMark
-        variant="sparkle"
-        className="absolute left-[6%] top-[12%] h-8 w-8 sm:h-10 sm:w-10"
-      />
-      <AccentMark
-        variant="chevrons"
-        className="absolute right-[6%] top-1/2 h-6 w-7 -translate-y-1/2 sm:h-7 sm:w-8"
-      />
+      <motion.div
+        className="absolute left-[6%] top-[12%]"
+        animate={prefersReducedMotion ? undefined : { y: [0, -10, 0], rotate: [0, 4, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <AccentMark variant="sparkle" className="h-8 w-8 sm:h-10 sm:w-10" />
+      </motion.div>
+      <motion.div
+        className="absolute right-[6%] top-1/2 -translate-y-1/2"
+        animate={prefersReducedMotion ? undefined : { x: [0, -8, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+      >
+        <AccentMark variant="chevrons" className="h-6 w-7 sm:h-7 sm:w-8" />
+      </motion.div>
 
       <div className="container-iseyaa relative">
         <div className="mx-auto max-w-2xl text-center">

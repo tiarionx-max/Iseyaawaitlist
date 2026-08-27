@@ -71,6 +71,13 @@ body {
   color: var(--color-forest-deep);
 }
 
+/* Native cursor hidden in favor of CustomCursor, except over text fields
+   where a real caret cursor still matters. */
+.custom-cursor,
+.custom-cursor *:not(input):not(textarea) {
+  cursor: none;
+}
+
 /* Fluid type scale, used across sections */
 .text-hero {
   font-size: clamp(2.25rem, 2.6vw + 1.6rem, 3.75rem);

@@ -55,7 +55,7 @@ export const FEATURES: FeatureItem[] = [
 
 export function Features() {
   return (
-    <section id="experiences" className="relative bg-cream py-28 sm:py-36">
+    <section id="experiences" className="relative bg-cream pb-28 pt-10 sm:pb-36 sm:pt-14">
       <div className="container-iseyaa">
         <div className="max-w-xl">
           <Reveal variants={fadeUp}>

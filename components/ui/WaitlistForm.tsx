@@ -136,7 +136,7 @@ export function WaitlistForm({ source, className }: WaitlistFormProps) {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="flex h-[60px] w-full items-center justify-center rounded-[10px] bg-forest-deep text-base font-medium text-white shadow-[inset_0_0_24px_0_rgba(255,247,231,0.1)] transition-[background-color,transform] duration-200 ease-out active:scale-[0.98] disabled:opacity-70"
+              className="flex h-[60px] w-full items-center justify-center rounded-[10px] bg-forest-deep text-base font-medium text-white shadow-[inset_0_0_24px_0_rgba(255,247,231,0.1)] transition-[background-color,transform] duration-200 ease-out hover:bg-[#00220f] active:scale-[0.98] disabled:opacity-70"
             >
               {status === "loading" ? (
                 <Loader2 className="size-5 animate-spin" aria-hidden="true" />
