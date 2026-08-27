@@ -57,7 +57,7 @@ export function HeroMedia() {
           poster="/images/hero-poster.webp"
           onLoadedData={() => setVideoReady(true)}
         >
-          <source src="/videos/iseyaa-hero.mp4" type="video/mp4" />
+          <source src="/videos/new-hero.mp4" type="video/mp4" />
         </video>
       )}
     </div>

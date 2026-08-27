@@ -23,7 +23,20 @@ export function buttonClassName(variant: ButtonVariant = "primary", className?: 
   );
 }
 
-function ButtonArrow() {
+type ArrowVariant = "plain" | "badge";
+
+function ButtonArrow({ variant = "plain" }: { variant?: ArrowVariant }) {
+  if (variant === "badge") {
+    return (
+      <span
+        className="flex aspect-square h-[2.2em] shrink-0 items-center justify-center rounded-full bg-yellow text-ink transition-transform duration-200 ease-out group-hover:translate-x-1"
+        aria-hidden="true"
+      >
+        <ArrowRight className="h-[1em] w-[1em]" />
+      </span>
+    );
+  }
+
   return (
     <ArrowRight
       className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-1"
@@ -36,6 +49,7 @@ interface ButtonAsButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: undefined;
   variant?: ButtonVariant;
   arrow?: boolean;
+  arrowVariant?: ArrowVariant;
   loading?: boolean;
   children: ReactNode;
 }
@@ -44,6 +58,7 @@ interface ButtonAsLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   variant?: ButtonVariant;
   arrow?: boolean;
+  arrowVariant?: ArrowVariant;
   loading?: undefined;
   children: ReactNode;
 }
@@ -57,13 +72,20 @@ type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
  * Pass `href` to render an anchor styled identically to the button —
  * needed because nav/CTA links must not nest an <a> inside a <button>.
  */
-export function Button({ variant = "primary", arrow = false, className, children, ...rest }: ButtonProps) {
+export function Button({
+  variant = "primary",
+  arrow = false,
+  arrowVariant = "plain",
+  className,
+  children,
+  ...rest
+}: ButtonProps) {
   if (rest.href !== undefined) {
     const { href, ...anchorRest } = rest;
     return (
       <a href={href} className={buttonClassName(variant, className)} {...anchorRest}>
         <span>{children}</span>
-        {arrow && <ButtonArrow />}
+        {arrow && <ButtonArrow variant={arrowVariant} />}
       </a>
     );
   }
@@ -81,7 +103,7 @@ export function Button({ variant = "primary", arrow = false, className, children
       ) : (
         <span>{children}</span>
       )}
-      {arrow && !loading && <ButtonArrow />}
+      {arrow && !loading && <ButtonArrow variant={arrowVariant} />}
     </button>
   );
 }
